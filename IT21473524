@@ -1,0 +1,166 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+//extracted payment class from  user(IT21192746)
+class Payment{
+	protected:
+		int pID;
+		int cardNumber;
+		char name[8];
+		char paymentType[4];
+		float amount;
+		
+		
+	public:
+		Payment();
+		void setPayDetails(int xpID, int xcardNumber, char xname[], char xpaymentType[]);
+		void display();
+		float calcTotal();
+		void confirmPay();
+
+		
+};
+Payment::Payment()
+{
+	pID = 0;
+	cardNumber = 0;
+	strcpy(name,"");
+	strcpy(paymentType,"");
+	
+
+}
+	void Payment::setPayDetails(int xpID, int xcardNumber, char xname[], char xpaymentType[])
+{
+	pID = xpID; 
+	cardNumber = xcardNumber;
+	strcpy (name, xname);
+	strcpy (paymentType, xpaymentType);
+	
+}
+
+	void Payment::confirmPay()
+{
+}
+void Payment::display()
+{
+		    cout<<"PID                : "<<pID<<endl;
+			cout<<"Card holder's name': "<<name<<endl;
+		    cout<<"Card number        : "<<cardNumber<<endl;
+			cout<<"Payment Type       : "<<paymentType<<endl;
+			
+			
+}
+		float calcTotal()
+		{
+			float amount;
+			return  amount;
+}
+//nikinni
+//class of part class
+class Damage : public Payment{
+	protected:
+		float AdCost;
+	public:
+		Damage();
+		Damage(float pAdCost);
+		void Display();
+		~Damage();
+};
+
+//Implementation of part class
+Damage::Damage()
+	{
+		AdCost=0.0;
+	}
+Damage::Damage(float pAdCost)
+	{
+		AdCost=pAdCost;
+	}
+void Damage::Display()
+	{
+			cout<<"Cost Damage: " <<AdCost<<endl;
+	}
+Damage::~Damage()
+	{
+		cout<<"delete "<<AdCost<<endl;
+	}
+
+//class of whole class
+class Report{
+	private:
+		Damage *dmg;//creating pointer
+		char date[10];
+		int CID;
+		char vehicleno[10];
+		float mileage;
+		
+	public:
+		Report();
+		Report(char pdate[],int CID,char pvehicleno[],float pmileage);
+		Report(float Cost);
+		void displayDetails();
+		void DisplayCost();
+		~Report();
+};
+
+//Implementation of whole class
+Report::Report()
+	{
+		
+		strcpy(date, "");
+		CID=0;
+		strcpy(vehicleno, "");
+		mileage=0.0;
+		
+	}
+Report::Report(char pdate[],int pCID,char pvehicleno[],float pmileage)
+{
+		strcpy(date,pdate);
+		CID=pCID;
+		strcpy(vehicleno,pvehicleno);
+		mileage=pmileage;
+}
+	
+Report::Report(float Cost)
+	{
+		dmg= new Damage(Cost);
+	}
+void Report::displayDetails()
+	{
+		cout<<"Date            : " << date <<endl;
+    cout<<"Customer's id   : " <<CID<<endl;
+		cout<<"Vehicle No      : " <<vehicleno<<endl;
+		cout<<"Mileage         : " << mileage <<endl;
+	}
+void Report::DisplayCost()
+	{
+		dmg->Display();
+	}
+Report::~Report()
+	{
+		    cout<<endl;
+			cout<<"Report deleting"<<endl;
+			delete dmg;
+	}
+
+//main program
+int main ()
+{
+	cout<<"Vehicle Inspection"<<endl<<endl;
+	Report *myReport;
+	myReport=new Report("2022-02-19",40001,"CAY-3261",520.0);
+	myReport ->displayDetails();
+	
+	cout<<endl;
+	Payment cus1;
+	cus1.setPayDetails(2015,7854126, "Kamal", "Visa");
+	cus1.display();
+	
+	cout<<endl;
+	
+	myReport=new Report(8000.00);
+	myReport ->DisplayCost();
+	delete myReport;
+	
+	return 0;
+}
