@@ -1,0 +1,165 @@
+//IT21487484
+//Devinuwara D.L.N.A.
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class User
+{
+protected:
+	char Name[20];
+	char Email[30];
+	char NIC[12];
+	int bankAccountNo;
+	int contactNo;
+	char Address[50];
+
+public:
+	User();
+	User(char pName[], char pEmail[], char pNIC[], int pBankAccountNo, int pContactNo, char pAddress[]);
+	void logIn();
+	void logOut();
+	void editProfile();
+	void getConfirm();
+};
+
+//Implementation of User Class
+User::User()
+{
+}
+
+User::User(char pName[], char pEmail[], char pNIC[], int pBankAccountNo, int pContactNo, char pAddress[])
+{
+	strcpy(Name, pName);
+	strcpy(Email, pEmail);
+	strcpy(NIC, pNIC);
+	bankAccountNo = pBankAccountNo;
+	contactNo = pContactNo;
+	strcpy(Address, pAddress);
+}
+
+void User::logIn()
+{
+  cout<<"Welcome to rent me!"<<endl;
+}
+void User::logOut()
+{
+  cout<<"logged out successfully"<<endl;
+}
+void User::editProfile()
+{
+
+}
+void User::getConfirm()
+{
+
+}
+
+
+class Renter :public User
+{
+private:
+	int RID;
+	int vehicleNo;
+	char vehicleDetails[20];
+public:
+	Renter();
+	Renter(char pName[], char pEmail[], char pNIC[], int pBankAccountNo,     int pContactNo, char pAddress[]);
+	void setDetails(int pRID, const char pdes[]);
+	void setVehicleNo(int pVehNo);
+	int getVehicleNo();
+  void display();
+};
+
+class Customer :public User
+{
+private:
+	int CID;
+public:
+	Customer();
+	Customer(char pName[], char pEmail[], char pNIC[], int pBankAccountNo, int pContactNo, char pAddress[], int cCID);
+	void reserveCar();
+	void searchCar();
+};
+
+
+//Implementaion of Renter Class
+Renter::Renter()
+{
+	RID = 0;
+	vehicleNo = 0;
+	strcpy(vehicleDetails, "");
+}
+
+Renter::Renter(char pName[], char pEmail[], char pNIC[], int pBankAccountNo, int pContactNo, char pAddress[])
+	: User(pName, pEmail, pNIC, pBankAccountNo, pContactNo, pAddress)
+{
+
+}
+void Renter::setDetails(int pRID, const char pdes[])
+{
+	RID = pRID;
+	strcpy(vehicleDetails, pdes);
+}
+void Renter::setVehicleNo(int pVehNo)
+{
+	vehicleNo = pVehNo;
+}
+
+int Renter::getVehicleNo()
+{
+	return vehicleNo;
+}
+void Renter::display()
+{
+	cout<<"display vehicle"<<vehicleNo<<endl;
+}
+
+
+//Implementation of Customer Class
+Customer::Customer()
+{
+	CID = 0;
+
+}
+Customer::Customer(char pName[], char pEmail[], char pNIC[], int pBankAccountNo, int pContactNo, char pAddress[], int cCID)
+	: User(pName, pEmail, pNIC, pBankAccountNo, pContactNo, pAddress)
+{
+	CID = cCID;
+}
+void Customer::reserveCar()
+{
+
+}
+void Customer::searchCar()
+{
+
+}
+
+
+int main()
+{
+	//---- Object creation ------
+	Customer cus; // Object -
+	Renter ren; // Object -
+
+	//----Method Calling------
+	cus.logIn();
+	cus.logOut();
+	cus.getConfirm();
+	cus.editProfile();
+	cus.reserveCar();
+	cus.searchCar();
+
+	ren.logIn();
+	ren.logOut();
+	ren.getConfirm();
+	ren.editProfile();
+	ren.setVehicleNo(3325);
+	ren.getVehicleNo();
+
+
+
+	return 0;
+}
